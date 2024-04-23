@@ -1,6 +1,9 @@
 import { Context, Hono } from 'hono'
 import { etag } from 'hono/etag'
 import { logger } from 'hono/logger'
+import { secureHeaders } from 'hono/secure-headers'
+import { cors } from 'hono/cors'
+import { prettyJSON } from 'hono/pretty-json'
 
 /**
  * @hono_setup
@@ -12,6 +15,20 @@ app.use(logger())
 
 app.use('/etag/*', etag())
 
+app.use(secureHeaders())
+
+app.use(cors({
+  origin: '*',
+  allowMethods: ['GET'],
+  maxAge: 600,
+}))
+
+app.use(prettyJSON())
+
+/**
+ * @hono_routes
+*/
+
 app.notFound((c: Context) => {
   return c.redirect('/api')
 })
@@ -20,10 +37,6 @@ app.onError((err, c) => {
   console.error(`${err}`)
   return c.text('Custom Error Message', 500)
 })
-
-/**
- * @hono_routes
- */
 
 app.get('/', (c: Context) => {
   return c.text(`
@@ -42,10 +55,20 @@ app.get('/docs', (c: Context) => {
 })
 
 app.get('/generate/:pattern', (c: Context) => {
-  return c.json({
-    data: [],
-    metadata: {},
-  })
+  try {
+    return c.json({
+      data: [],
+      metadata: {},
+    })
+
+  } catch (error) {
+    return c.json({
+      error: { message: `` },
+      data: [],
+      metadata: {},
+    })
+
+  }
 })
 
 export default app
