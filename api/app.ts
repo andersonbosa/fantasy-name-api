@@ -52,8 +52,7 @@ Have fun!
 })
 
 app.get('/docs', (c: Context) => {
-  let snippet = c.req.query('snippet') ?? 'curl'
-  snippet = snippet === '' ? 'curl' : snippet /* apply default value to snippet */
+  let snippet = c.req.query('snippet') ?? ''
 
   const currentOriginUrl = new URL(c.req.url.replace('/api/docs', ''))
   const currentOrigin = currentOriginUrl.origin.toString()

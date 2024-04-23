@@ -2,6 +2,8 @@ import namegen from './../lib/namegen'
 import { Context } from 'hono'
 import { KnowGeneratorsType } from './api'
 
+/**
+ * #TOD  */
 async function useNameGem (pattern: string | KnowGeneratorsType = '', limit: number) {
   if (namegen.hasOwnProperty(pattern.toUpperCase())) {
     pattern = namegen[pattern.toUpperCase() as KnowGeneratorsType]
