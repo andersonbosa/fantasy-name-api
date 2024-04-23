@@ -1,3 +1,5 @@
+/* @ */
+
 /**
  *
  * @file A fantasy name generator library.
@@ -117,7 +119,7 @@ namespace NameGen {
   export let FANTASY_S_E = "(syth|sith|srr|sen|yth|ssen|then|fen|ssth|kel|syn|est|bess|inth|nen|tin|cor|sv|iss|ith|sen|slar|ssil|sthen|svis|s|ss|s|ss)(|(tys|eus|yn|of|es|en|ath|elth|al|ell|ka|ith|yrrl|is|isl|yr|ast|iy))(us|yn|en|ens|ra|rg|le|en|ith|ast|zon|in|yn|ys)"
 
 
-  let symbolMap = {
+  let symbolMap:any = {
     s: ['ach', 'ack', 'ad', 'age', 'ald', 'ale', 'an', 'ang', 'ar', 'ard',
       'as', 'ash', 'at', 'ath', 'augh', 'aw', 'ban', 'bel', 'bur', 'cer',
       'cha', 'che', 'dan', 'dar', 'del', 'den', 'dra', 'dyn', 'ech', 'eld',
@@ -187,7 +189,7 @@ namespace NameGen {
       this.type = type
     }
 
-    public produce (): Generator {
+    public produce (): Generator | undefined {
       switch (this.set.length) {
         case 0:
           return new Literal('')
@@ -195,8 +197,8 @@ namespace NameGen {
           return this.set[0]
         default:
           return new Random(this.set)
+        /* @ */
       }
-      return
     }
 
     public split (): void {
@@ -265,7 +267,7 @@ namespace NameGen {
 
     protected generators: Generator[] = [];
 
-    constructor(pattern: string | Generator[] = null, collapse_triples: boolean = true) {
+    constructor(pattern: null | string | Generator[] = null, collapse_triples: boolean = true) {
       if ((typeof pattern) === 'object') {
         this.generators = <Generator[]>pattern
         return
@@ -297,8 +299,8 @@ namespace NameGen {
             } else if (chr === ')' && top.type != GroupTypes.literal) {
               throw new Error('Unexpected \')\' in pattern')
             }
-            last = top.produce()
-            top = stack.pop()
+            last = top.produce() as Generator
+            top = stack.pop() as Group
             top.add(last)
             break
           case '|':
@@ -328,7 +330,7 @@ namespace NameGen {
         throw new Error('Missing closing brackets')
       }
 
-      let g: Generator = top.produce()
+      let g: Generator = top.produce() as Generator
       if (collapse_triples) {
         g = new Collapser(g)
       }

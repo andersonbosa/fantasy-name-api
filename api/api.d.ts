@@ -1,4 +1,4 @@
-export type Generators = 'MIDDLE_EARTH'
+export type KnowGeneratorsType = 'MIDDLE_EARTH'
   | 'JAPANESE_NAMES_CONSTRAINED'
   | 'JAPANESE_NAMES_DIVERSE'
   | 'CHINESE_NAMES'
