@@ -4,6 +4,7 @@ import { logger } from 'hono/logger'
 import { secureHeaders } from 'hono/secure-headers'
 import { cors } from 'hono/cors'
 import { prettyJSON } from 'hono/pretty-json'
+import { NameGenController } from './namegen.controller'
 
 /**
  * @hono_setup
@@ -54,21 +55,6 @@ app.get('/docs', (c: Context) => {
   return c.text(`TODO`)
 })
 
-app.get('/generate/:pattern', (c: Context) => {
-  try {
-    return c.json({
-      data: [],
-      metadata: {},
-    })
-
-  } catch (error) {
-    return c.json({
-      error: { message: `` },
-      data: [],
-      metadata: {},
-    })
-
-  }
-})
+app.get('/generate/:pattern', NameGenController)
 
 export default app
