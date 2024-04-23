@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import { Context, Hono } from 'hono'
 import { etag } from 'hono/etag'
 import { logger } from 'hono/logger'
 
@@ -12,7 +12,7 @@ app.use(logger())
 
 app.use('/etag/*', etag())
 
-app.notFound((c) => {
+app.notFound((c: Context) => {
   return c.redirect('/api')
 })
 
@@ -25,7 +25,7 @@ app.onError((err, c) => {
  * @hono_routes
  */
 
-app.get('/', (c) => {
+app.get('/', (c: Context) => {
   return c.text(`
 Hello, friend. 👾
 
@@ -37,12 +37,11 @@ Have fun!
   `)
 })
 
-app.get('/docs', (c) => {
+app.get('/docs', (c: Context) => {
   return c.text(`TODO`)
 })
 
-app.get('/generate/:pattern', (c) => {
-
+app.get('/generate/:pattern', (c: Context) => {
   return c.json({
     data: [],
     metadata: {},
