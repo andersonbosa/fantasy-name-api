@@ -1,3 +1,13 @@
+const pageFooter = `
+
+
+______________________________________________________________
+
+Author: Anderson Bosa < https://andersonbosa.vercel.app >
+Source-code: https://github.com/andersonbosa/fantasy-name-api
+License: CC-1.0 Public Domain
+`
+
 
 export const homeResponse = (originUrl: string): string => {
   return `
@@ -6,10 +16,12 @@ Hello, friend! 👾
 This project aims to provide an API using the beautiful fantasy name generator
 developed by "Edgar Alvarado (Pe1uca)". My thanks to him.
 
-I just encapsuated to a framework to make available via API.
+I just put it to a framework to make available through API to other people.
 Check it out \`${originUrl}/docs\` for more details.
 
-Have fun!`
+Have fun!
+
+${pageFooter}`
 }
 
 
@@ -59,5 +71,7 @@ ${snippet} ${currentOrigin}/api/generate/FANTASY_S_E
 - FANTASY_K_N
 - FANTASY_J_G_Z
 - FANTASY_K_J_Y
-- FANTASY_S_E`
+- FANTASY_S_E
+
+${pageFooter}`
 }
